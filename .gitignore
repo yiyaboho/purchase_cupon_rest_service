@@ -1,8 +1,19 @@
+HELP.md
+/target
+.classpath
+mvnw
+mvnw.cmd
+
 # Compiled class file
 *.class
 
 # Log file
 *.log
+
+#sts
+.project
+.settings
+.springBeans
 
 # BlueJ files
 *.ctxt
