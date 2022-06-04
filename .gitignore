@@ -3,6 +3,7 @@ HELP.md
 .classpath
 mvnw
 mvnw.cmd
+.mvn/
 
 # Compiled class file
 *.class

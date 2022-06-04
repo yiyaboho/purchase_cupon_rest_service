@@ -1,0 +1,118 @@
+swagger: "2.0"
+info:
+  description: "Challenge: Cupón de compra"
+  version: "1.0.0"
+  title: "Cupon Compra"
+  contact:
+    email: "bohorquez.nancy@gmail.com"
+host: "localhost"
+basePath: "/coupon"
+schemes:
+- "https"
+- "http"
+paths:
+  /:
+    post:
+      tags:
+      - "coupon, "
+      summary: "retorna los items que tendría que comprar el usuario"
+      description: ""
+      operationId: "getCouponItems"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Lista de items y el monto del cupon"
+        required: true
+        schema:
+          $ref: "#/definitions/ItemsToBy"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ItemsToBy"
+        "400":
+          description: "Invalid status value"
+  /favorite/user/{userId}/item/{itemId}:
+    post:
+      tags:
+      - "favoritos"
+      summary: "Almacena item favorito del usuario"
+      description: "Guarda un item que se marco como favorito por el usuario"
+      operationId: "setUserFavorite"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: path
+        name: "userId"
+        type: string
+        description: "identificador del usuario"
+        required: true
+      - in: path
+        name: "itemId"
+        type: string
+        description: "identificador del item marcado como favorito"
+        required: true
+      responses:
+        "200":
+          description: "successful operation"
+        "400":
+          description: "Invalid status value"
+  /stats:
+    get:
+      tags:
+      - "favorites"
+      summary: "devuelve el top 5 de ítems más favoriteados"
+      description: "devuelve el top 5 de ítems más favoriteados"
+      operationId: "getTopFavorites"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "top"
+        in: "query"
+        description: "numero de items a retornar"
+        required: true
+        type: "number"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/TopItems"
+        "500":
+          description: "Internal error"
+definitions:
+  ItemsToBy:
+    type: "object"
+    properties:
+      items_ids:
+        type: "array"
+        items:
+          type: "string"
+      amount:
+        type: "integer"
+        format: "double"
+        description: Monto del cupon
+      total:
+        type: "integer"
+        format: "total gastado"
+  TopItems:
+    type: "object"
+    properties:
+      item:
+        type: "array"
+        items:
+          $ref: "#/definitions/Item"
+  Item:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      quantity:
+        type: "integer"
+        format: "int64"
