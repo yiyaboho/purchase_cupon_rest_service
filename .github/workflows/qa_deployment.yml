@@ -46,14 +46,14 @@ jobs:
           LIMITS_MEMORY: '512Mi'
           REQUEST_CPU: '256m'
           REQUEST_MEMORY: '320Mi'
-          REGISTRY: '940718843973.dkr.ecr.us-east-1.amazonaws.com'
+          REGISTRY: '814174530124.dkr.ecr.us-east-1.amazonaws.com'
 
           CLUSTER_NAME: "SYSTEM"
           NAMESPACE: "challenge"
           PORT_SERVICE: 9001
           LOGS_LEVEL: "INFO"
 
-          EKS_NAMESPACE: ""
+          EKS_NAMESPACE: "challenge"
           IMAGE_TAG: "1.0.0-alpha"
           ENDPOINT_API_ITEMS: "https://api.mercadolibre.com/items/$ITEM_ID1"
         run: |
