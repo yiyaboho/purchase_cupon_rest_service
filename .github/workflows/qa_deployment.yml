@@ -55,6 +55,7 @@ jobs:
           IMAGE_TAG: "1.0.0-alpha"
           ENDPOINT_API_ITEMS: "https://api.mercadolibre.com/items/$ITEM_ID1"
         run: |
+          aws sts get-caller-identity
           mvn -v
           aws eks --region us-east-1 update-kubeconfig --name yiyaboho-cicd-cluster
           kubectl delete deployment purchase_coupon_rest_service -n ${NAMESPACE}
