@@ -4,6 +4,9 @@ on:
   push:
     branches: [ feature/init ]
 
+permissions:
+  id-token: write
+  
 jobs:
   deploy:
 
@@ -22,8 +25,7 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          role-to-assume: arn:aws:iam::814174530124:role/purchase-coupon-gitecr-rol
           aws-region: us-east-1
           role-session-name: eks
           role-duration-seconds: 3600
