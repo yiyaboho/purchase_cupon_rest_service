@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ${project.artifactId}
+  labels:
+    run: ${project.artifactId}  
+spec:
+  selector:
+    matchLabels:
+      run: ${project.artifactId}
+  template:
+    metadata:
+      labels:
+        run: ${project.artifactId}
+    spec:
+      containers:        
+      - image: ${docker.image.prefix}/coupon/${project.artifactId}:${docker.image.tag}
+        name: ${project.artifactId}
+        imagePullPolicy: Always
+        livenessProbe:
+           httpGet:
+              path: /coupon/actuator/health/liveness  
+              port: ${app.property.port} 
+           initialDelaySeconds: 240  
+           periodSeconds: 60
+        readinessProbe:
+           httpGet:  
+              path: /coupon/actuator/health/readiness  
+              port: ${app.property.port}
+           initialDelaySeconds: 5  
+           periodSeconds: 5
+        startupProbe:
+           httpGet:
+             path: /coupon/actuator/health/liveness
+             port: ${app.property.port} 
+           failureThreshold: 30
+           periodSeconds: 10
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: qa
+        - name: JAVA_TOOL_OPTIONS
+          value: "-Xmx320m -Xms128m -XX:MaxMetaspaceSize=256m"
+        - name: TZ
+          valueFrom:
+            configMapKeyRef:
+              key: TZ
+              name: ${project.artifactId}-cm
+        - name: PORT
+          valueFrom:
+            configMapKeyRef:
+              key: PORT
+              name: ${project.artifactId}-cm
+        - name: AWS_LOGS_LEVEL
+          valueFrom:
+            configMapKeyRef:
+              key: AWS_LOGS_LEVEL
+              name: ${project.artifactId}-cm
+        - name: ENDPOINT_API_ITEMS
+          valueFrom:
+            configMapKeyRef:
+              key: ENDPOINT_API_ITEMS
+              name: ${project.artifactId}-cm             
+        securityContext:
+          capabilities:
+            drop:
+              - NET_RAW
+        resources:
+            limits:
+              memory: ${limits.memory}
+              cpu: ${limits.cpu}
+            requests:
+              memory: ${request.memory}
+              cpu: ${request.cpu}

@@ -1,0 +1,59 @@
+name: QA AWS Deployment
+
+on:
+  push:
+    branches: [ feature/init ]
+
+jobs:
+  deploy:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+          role-session-name: eks
+          role-duration-seconds: 3600
+          role-skip-session-tagging: true
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: jkube
+        env:
+          MAX_REPLICAS: 3
+          MIN_REPLICAS: 1
+          TARGET_CPU: 70
+          LIMITS_CPU: '476m'
+          LIMITS_MEMORY: '512Mi'
+          REQUEST_CPU: '256m'
+          REQUEST_MEMORY: '320Mi'
+          REGISTRY: '940718843973.dkr.ecr.us-east-1.amazonaws.com'
+
+          CLUSTER_NAME: "SYSTEM"
+          NAMESPACE: "challenge"
+          PORT_SERVICE: 9001
+          LOGS_LEVEL: "INFO"
+
+          EKS_NAMESPACE: ""
+          IMAGE_TAG: "1.0.0-alpha"
+          ENDPOINT_API_ITEMS: "https://api.mercadolibre.com/items/$ITEM_ID1"
+        run: |
+          mvn -v
+          aws eks --region us-east-1 update-kubeconfig --name bdb-qa-eks-transv-cluster
+          kubectl delete deployment purchase_coupon_rest_service -n ${NAMESPACE}
+          mvn clean k8s:build -DskipTests=true -PJib-With-Assembly -Djkube.build.strategy=jib -Djkube.namespace=${NAMESPACE} -Dapp.maxReplicas=${MAX_REPLICAS} -Dapp.minReplicas=${MIN_REPLICAS} -Dapp.targetCPU=${TARGET_CPU} -Dapp.limitsCPU=${LIMITS_CPU} -Dapp.limitsMemory=${LIMITS_MEMORY} -Dapp.requestCPU=${REQUEST_CPU} -Dapp.requestMemory=${REQUEST_MEMORY} -Dapp.registry=${REGISTRY} -Dapp.port=${PORT_SERVICE} -Dapp.logslevel=${LOGS_LEVEL} -Dapp.property.endpoint.api.items=${ENDPOINT_API_ITEMS} -Dapp.eksnamespace=${EKS_NAMESPACE} -Dimage.tag=${IMAGE_TAG}

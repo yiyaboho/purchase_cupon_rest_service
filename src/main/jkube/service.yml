@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ${project.artifactId}
+  namespace: ${eks.namespace}
+  labels:
+    expose: "true"
+spec:
+  ports:
+  - name: ${app.property.port}-tcp
+    port: ${app.property.port}
+    protocol: TCP
+    targetPort: ${app.property.port}
+  type: NodePort

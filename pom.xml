@@ -9,12 +9,31 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.meli.purchase.cupon</groupId>
-	<artifactId>purchase_cupon_rest_service</artifactId>
+	<artifactId>purchase_coupon_rest_service</artifactId>
 	<version>0.0.1</version>
-	<name>purchase_cupon_rest_service</name>
+	<name>purchase_coupon_rest_service</name>
 	<description>Challenge: Cupón de compra</description>
 	<properties>
 		<java.version>11</java.version>
+		<!-- Propiedades definidas para configurar deploy por fabric8 -->
+		<docker.image.prefix>${app.registry}</docker.image.prefix>
+		<docker.image.tag>${image.tag}</docker.image.tag>
+		<eks.namespace>${app.eksnamespace}</eks.namespace>
+
+		<!-- Propiedades definidas para recursos de la aplicacion -->
+		<limits.memory>${app.limitsMemory}</limits.memory>
+		<limits.cpu>${app.limitsCPU}</limits.cpu>
+		<request.memory>${app.requestMemory}</request.memory>
+		<request.cpu>${app.requestCPU}</request.cpu>
+		<max.replicas>${app.maxReplicas}</max.replicas>
+		<min.replicas>${app.minReplicas}</min.replicas>
+		<target.cpu>${app.targetCPU}</target.cpu>
+
+		<!-- Propiedades adicionadas (variablles de entorno) para el despliegue -->
+		<app.property.port>${app.port}</app.property.port>
+		<app.property.logslevel>${app.logslevel}</app.property.logslevel>
+		<app.property.endpoint.api.items>${app.property.endpoint.api.items}</app.property.endpoint.api.items>
+		
 	</properties>
 	<dependencies>
 		<dependency>
@@ -27,6 +46,18 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- Inicio dependecias healthcheck microservicio -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.micrometer</groupId>
+			<artifactId>micrometer-registry-prometheus</artifactId>
+			<version>${micrometer.version}</version>
+		</dependency>
+		<!-- dependecias healthcheck microservicio -->
+		
 	</dependencies>
 
 	<build>
@@ -37,5 +68,50 @@
 			</plugin>
 		</plugins>
 	</build>
-
+<profiles>
+		<profile>
+			<id>Jib-With-Assembly</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.eclipse.jkube</groupId>
+						<artifactId>kubernetes-maven-plugin</artifactId>
+						<version>1.3.0</version>
+						<configuration>
+							<pushRegistry>${docker.image.prefix}</pushRegistry>
+							<images>
+								<image>
+									<name>${docker.image.prefix}/transv/commons/${project.artifactId}:${docker.image.tag}</name>
+									<build>
+										<from>openjdk:13-jdk-alpine</from>
+										<entryPoint>
+											<exec>
+												<arg>java</arg>
+												<arg>-jar</arg>
+												<arg>/target/${project.build.finalName}.jar</arg>
+											</exec>
+										</entryPoint>
+										<assembly>
+											<targetDir>/target</targetDir>
+											<mode>dir</mode>
+										</assembly>
+									</build>
+								</image>
+							</images>
+						</configuration>
+						<executions>
+							<execution>
+								<goals>
+									<goal>resource</goal>
+									<goal>build</goal>
+									<goal>push</goal>
+									<goal>apply</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>
