@@ -46,7 +46,7 @@ jobs:
           LIMITS_MEMORY: '512Mi'
           REQUEST_CPU: '256m'
           REQUEST_MEMORY: '320Mi'
-          REGISTRY: '814174530124.dkr.ecr.us-east-1.amazonaws.com/qa'
+          REGISTRY: '814174530124.dkr.ecr.us-east-1.amazonaws.com'
 
           CLUSTER_NAME: "SYSTEM"
           NAMESPACE: "microservice"

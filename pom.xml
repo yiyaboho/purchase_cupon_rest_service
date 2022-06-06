@@ -58,6 +58,21 @@
 		</dependency>
 		<!-- dependecias healthcheck microservicio -->
 		
+		<!-- Libreria para el manejo de WebCliente -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-webflux</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.projectreactor</groupId>
+			<artifactId>reactor-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+		</dependency>
+		<!-- Fin Libreria para el manejo de WebCliente -->
 	</dependencies>
 
 	<build>
@@ -81,7 +96,7 @@
 							<pushRegistry>${docker.image.prefix}</pushRegistry>
 							<images>
 								<image>
-									<name>${docker.image.prefix}/cicd/qa/${project.artifactId}:${docker.image.tag}</name>
+									<name>${docker.image.prefix}/transv/commons/${project.artifactId}:${docker.image.tag}</name>
 									<build>
 										<from>openjdk:13-jdk-alpine</from>
 										<entryPoint>
