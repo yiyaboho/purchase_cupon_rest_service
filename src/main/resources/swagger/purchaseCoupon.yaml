@@ -94,12 +94,13 @@ definitions:
         items:
           type: "string"
       amount:
-        type: "integer"
+        type: "number"
         format: "double"
         description: Monto del cupon
       total:
-        type: "integer"
-        format: "total gastado"
+        type: "number"
+        format: "double"
+        description: "total gastado"
   TopItems:
     type: "object"
     properties:

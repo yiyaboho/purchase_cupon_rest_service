@@ -1,8 +1,14 @@
 server:
     port: ${PORT}
+app:
+  api-items:
+    endpoint: ${ENDPOINT_API_ITEMS}
 management:
    endpoints:
       web:
          exposure:
             include: prometheus,health,info,metric   
+spring:
+  jackson:
+      default-property-inclusion: non_null             
 

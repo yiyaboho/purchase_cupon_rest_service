@@ -1,4 +1,4 @@
-package com.meli.purchase.coupon.model;
+package com.purchase.coupon.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,26 +9,26 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class TopItems   {
   @JsonProperty("item")
-  private List<Item> item = null;
+  private List<CouponItem> item = null;
 
-  public TopItems item(List<Item> item) {
+  public TopItems item(List<CouponItem> item) {
     this.item = item;
     return this;
   }
 
-  public TopItems addItemItem(Item itemItem) {
+  public TopItems addItemItem(CouponItem itemItem) {
     if (this.item == null) {
-      this.item = new ArrayList<Item>();
+      this.item = new ArrayList<CouponItem>();
     }
     this.item.add(itemItem);
     return this;
   }
 
-  public List<Item> getItem() {
+  public List<CouponItem> getItem() {
     return item;
   }
 
-  public void setItem(List<Item> item) {
+  public void setItem(List<CouponItem> item) {
     this.item = item;
   }
 

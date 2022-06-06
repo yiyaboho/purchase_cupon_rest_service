@@ -1,7 +1,13 @@
 server:
     port: 9001
+app:
+  api-items:
+    endpoint: https://api.mercadolibre.com/items
 management:
    endpoints:
       web:
          exposure:
             include: prometheus,health,info,metric   
+spring:
+  jackson:
+      default-property-inclusion: non_null 

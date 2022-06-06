@@ -32,7 +32,7 @@
 		<!-- Propiedades adicionadas (variablles de entorno) para el despliegue -->
 		<app.property.port>${app.port}</app.property.port>
 		<app.property.logslevel>${app.logslevel}</app.property.logslevel>
-		<app.property.endpoint.api.items>${app.property.endpoint.api.items}</app.property.endpoint.api.items>
+		<app.property.endpoint.api.items>${app.endpoint.api.items}</app.property.endpoint.api.items>
 		
 	</properties>
 	<dependencies>
@@ -58,6 +58,21 @@
 		</dependency>
 		<!-- dependecias healthcheck microservicio -->
 		
+		<!-- Libreria para el manejo de WebCliente -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-webflux</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.projectreactor</groupId>
+			<artifactId>reactor-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+		</dependency>
+		<!-- Fin Libreria para el manejo de WebCliente -->
 	</dependencies>
 
 	<build>

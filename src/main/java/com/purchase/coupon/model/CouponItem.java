@@ -1,17 +1,17 @@
-package com.meli.purchase.coupon.model;
+package com.purchase.coupon.model;
 
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Item   {
+public class CouponItem   {
   @JsonProperty("id")
   private Long id = null;
 
   @JsonProperty("quantity")
   private Long quantity = null;
 
-  public Item id(Long id) {
+  public CouponItem id(Long id) {
     this.id = id;
     return this;
   }
@@ -25,7 +25,7 @@ public class Item   {
     this.id = id;
   }
 
-  public Item quantity(Long quantity) {
+  public CouponItem quantity(Long quantity) {
     this.quantity = quantity;
     return this;
   }
@@ -48,7 +48,7 @@ public class Item   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Item item = (Item) o;
+    CouponItem item = (CouponItem) o;
     return Objects.equals(this.id, item.id) &&
         Objects.equals(this.quantity, item.quantity);
   }
