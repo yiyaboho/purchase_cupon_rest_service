@@ -6,4 +6,4 @@ data:
    TZ: America/Bogota
    PORT: ${app.property.port}
    AWS_LOGS_LEVEL: ${app.property.logslevel}
-   ENDPOINT_API_ITEMS: ${app.property.endpoint.api.items}
+   ENDPOINT_API_ITEMS: ${app.endpoint.api.items}

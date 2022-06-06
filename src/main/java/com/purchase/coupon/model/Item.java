@@ -1,4 +1,4 @@
-package com.meli.purchase.coupon.model;
+package com.purchase.coupon.model;
 
 import java.util.Objects;
 
