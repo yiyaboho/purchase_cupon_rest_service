@@ -58,7 +58,7 @@ jobs:
           ENDPOINT_API_ITEMS: "https://api.mercadolibre.com/items/$ITEM_ID1"
         run: |
           aws sts get-caller-identity
-          aws ecr create-repository --repository-name cicd/qa
+          aws ecr create-repository --repository-name cicd/qa || true
           mvn -v
           aws eks --region us-east-1 update-kubeconfig --name yiyaboho-cicd-cluster --role-arn arn:aws:iam::814174530124:role/purchase-coupon-gitecr-rol
           kubectl delete deployment purchase_coupon_rest_service -n ${NAMESPACE}
