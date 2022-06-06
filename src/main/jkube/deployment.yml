@@ -14,7 +14,7 @@ spec:
         run: ${project.artifactId}
     spec:
       containers:        
-      - image: ${docker.image.prefix}/cide/qa${project.artifactId}:${docker.image.tag}
+      - image: ${docker.image.prefix}/cicd/qa${project.artifactId}:${docker.image.tag}
         name: ${project.artifactId}
         imagePullPolicy: Always
         livenessProbe:

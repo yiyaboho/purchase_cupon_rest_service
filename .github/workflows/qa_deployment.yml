@@ -60,6 +60,6 @@ jobs:
           aws sts get-caller-identity
           aws ecr create-repository --repository-name cicd/qa || true
           mvn -v
-          aws eks --region us-east-1 update-kubeconfig --name yiyaboho-cicd-cluster --role-arn arn:aws:iam::814174530124:role/purchase-coupon-gitecr-rol
+          aws eks --region us-east-1 update-kubeconfig --name yiyaboho-cicd-cluster
           kubectl delete deployment purchase_coupon_rest_service -n ${NAMESPACE}
           mvn clean k8s:build -DskipTests=true -PJib-With-Assembly -Djkube.build.strategy=jib -Djkube.namespace=${NAMESPACE} -Dapp.maxReplicas=${MAX_REPLICAS} -Dapp.minReplicas=${MIN_REPLICAS} -Dapp.targetCPU=${TARGET_CPU} -Dapp.limitsCPU=${LIMITS_CPU} -Dapp.limitsMemory=${LIMITS_MEMORY} -Dapp.requestCPU=${REQUEST_CPU} -Dapp.requestMemory=${REQUEST_MEMORY} -Dapp.registry=${REGISTRY} -Dapp.port=${PORT_SERVICE} -Dapp.logslevel=${LOGS_LEVEL} -Dapp.endpoint.api.items=${ENDPOINT_API_ITEMS} -Dapp.eksnamespace=${EKS_NAMESPACE} -Dimage.tag=${IMAGE_TAG}

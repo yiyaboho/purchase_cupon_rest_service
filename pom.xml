@@ -81,7 +81,7 @@
 							<pushRegistry>${docker.image.prefix}</pushRegistry>
 							<images>
 								<image>
-									<name>${docker.image.prefix}/transv/commons/${project.artifactId}:${docker.image.tag}</name>
+									<name>${docker.image.prefix}/cicd/qa/${project.artifactId}:${docker.image.tag}</name>
 									<build>
 										<from>openjdk:13-jdk-alpine</from>
 										<entryPoint>
