@@ -13,7 +13,7 @@ import com.purchase.coupon.model.ItemsToBy;
 
 @RestController
 @RequestMapping(path = "/coupon")
-public class CuponController {
+public class CouponController {
 
 	@PostMapping(consumes = "application/json", produces = "application/json")
 	public ResponseEntity<String> getCupontItems(@RequestBody(required = true) ItemsToBy requestBody){
