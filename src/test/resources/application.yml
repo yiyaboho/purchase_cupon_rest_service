@@ -1,0 +1,8 @@
+local:
+  server:
+    port: 5001
+management:
+   endpoints:
+      web:
+         exposure:
+            include: prometheus,health,info,metric   
