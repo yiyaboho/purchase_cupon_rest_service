@@ -10,7 +10,16 @@ public class Item {
     private String seller_id;
     private String category_id;
     private double price;
+    private String message;
+    private String error;
+    private String status;
     
+    
+	public Item(String id, double price) {
+		super();
+		this.id = id;
+		this.price = price;
+	}
 	public String getId() {
 		return id;
 	}
@@ -46,6 +55,24 @@ public class Item {
 	}
 	public void setPrice(double price) {
 		this.price = price;
+	}
+	public String getMessage() {
+		return message;
+	}
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	public String getError() {
+		return error;
+	}
+	public void setError(String error) {
+		this.error = error;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
 	}
     
     

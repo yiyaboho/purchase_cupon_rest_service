@@ -29,7 +29,6 @@ public class CuponController {
 			items2By = couponService.getItemsToBy(requestBody.getItemsIds(), requestBody.getAmount());
 			return ResponseEntity.ok(items2By);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
