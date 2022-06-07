@@ -15,6 +15,7 @@ mvnw.cmd
 .project
 .settings
 .springBeans
+.factorypath
 
 # BlueJ files
 *.ctxt

@@ -8,6 +8,9 @@ management:
       web:
          exposure:
             include: prometheus,health,info,metric   
+logging:
+  level:
+    root: INFO    
 spring:
   jackson:
       default-property-inclusion: non_null             

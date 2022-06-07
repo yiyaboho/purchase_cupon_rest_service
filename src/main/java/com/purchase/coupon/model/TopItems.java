@@ -18,7 +18,7 @@ public class TopItems   {
 
   public TopItems addItemItem(CouponItem itemItem) {
     if (this.item == null) {
-      this.item = new ArrayList<CouponItem>();
+      this.item = new ArrayList<>();
     }
     this.item.add(itemItem);
     return this;

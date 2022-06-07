@@ -6,9 +6,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -22,7 +20,7 @@ import com.purchase.coupon.webclient.RestItemsClient;
 import com.purchase.coupon.webclient.model.Item;
 
 @SpringBootTest
-public class CouponServiceImplTest {
+class CouponServiceImplTest {
 
 	@Mock
 	RestItemsClient restClient;
@@ -44,7 +42,7 @@ public class CouponServiceImplTest {
 	}
 	
 	@Test
-	public void getCupontItems() throws Exception{
+	void getCupontItems() throws Exception{
 		List<String> itemsId = Arrays.asList(new String[]{"MLA1", "MLA2", "MLA3", "MLA4", "MLA5"});
 		when(restClient.getItemsInfo(itemsId)).thenReturn(itemsInfo);
 		
@@ -55,11 +53,14 @@ public class CouponServiceImplTest {
 	}
 
 	@Test
-	public void setUserFavorite(){
+	void setUserFavorite(){
 		assertEquals("hola", "hola");
 	}
 	
 	@Test
-	public void getTopFavorites(){
-		} 
+	void getTopFavorites(){
+		StringBuilder url = new StringBuilder();
+	
+		assertNotNull(url);
+	}
 }

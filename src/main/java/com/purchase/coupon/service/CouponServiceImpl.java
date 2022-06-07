@@ -7,28 +7,31 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.purchase.coupon.controller.CuponController;
 import com.purchase.coupon.exception.BusinessException;
 import com.purchase.coupon.exception.TechnicalException;
 import com.purchase.coupon.model.ItemsToBy;
 import com.purchase.coupon.webclient.RestItemsClient;
 import com.purchase.coupon.webclient.model.Item;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class CouponServiceImpl implements CouponService {
 
 	@Autowired
 	private RestItemsClient restItemsClient;
 	
 	@Override
-	public ItemsToBy getItemsToBy(List<String> items, double amount) throws Exception{
-		
+	public ItemsToBy getItemsToBy(List<String> items, double amount) throws BusinessException{
+		log.info("ItemsToBy ");
 		List<Item> priceItems = getPriceItems(items);
 		List<String> couponItems = new ArrayList<>();
 		
-		priceItems = sortList(priceItems);
 		double total = 0;
 		
-		for(Item item : priceItems) {
+		for(Item item : sortList(priceItems)) {
 			double tmpTotal = total + item.getPrice();
 			if(tmpTotal <= amount) {
 				total = tmpTotal;
@@ -36,9 +39,10 @@ public class CouponServiceImpl implements CouponService {
 			}
 		}
 		
-		if(couponItems == null || couponItems.isEmpty())
+		if(couponItems.isEmpty())
 			throw new BusinessException("No se encontraron items que cumplan con el criterio");
 		
+		log.info("ItemsToBy finish");
 		return new ItemsToBy(couponItems, total);
 	}
 	

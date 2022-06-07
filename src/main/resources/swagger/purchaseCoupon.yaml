@@ -101,6 +101,9 @@ definitions:
         type: "number"
         format: "double"
         description: "total gastado"
+      message:
+        type: "string"
+        description: "mensaje en caso de error de negocio"
   TopItems:
     type: "object"
     properties:

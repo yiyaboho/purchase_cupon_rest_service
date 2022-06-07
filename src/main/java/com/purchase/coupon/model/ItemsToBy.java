@@ -14,6 +14,8 @@ public class ItemsToBy {
 	private Double amount = null;
 
 	private Double total = null;
+	
+	private String message = null;
 
 	public ItemsToBy() {
 		}
@@ -30,7 +32,7 @@ public class ItemsToBy {
 
 	public ItemsToBy addItemsIdsItem(String itemsIdsItem) {
 		if (this.itemsIds == null) {
-			this.itemsIds = new ArrayList<String>();
+			this.itemsIds = new ArrayList<>();
 		}
 		this.itemsIds.add(itemsIdsItem);
 		return this;
@@ -109,5 +111,13 @@ public class ItemsToBy {
 			return "null";
 		}
 		return o.toString().replace("\n", "\n    ");
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
 	}
 }

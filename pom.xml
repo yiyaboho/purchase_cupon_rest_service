@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.7.0</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.meli.purchase.cupon</groupId>
 	<artifactId>purchase_coupon_rest_service</artifactId>
@@ -33,12 +34,22 @@
 		<app.property.port>${app.port}</app.property.port>
 		<app.property.logslevel>${app.logslevel}</app.property.logslevel>
 		<app.property.endpoint.api.items>${app.endpoint.api.items}</app.property.endpoint.api.items>
-		
+
 	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-logging</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>logback-classic</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<dependency>
@@ -59,10 +70,9 @@
 		<dependency>
 			<groupId>io.micrometer</groupId>
 			<artifactId>micrometer-registry-prometheus</artifactId>
-			<version>${micrometer.version}</version>
 		</dependency>
 		<!-- dependecias healthcheck microservicio -->
-		
+
 		<!-- Libreria para el manejo de WebCliente -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -78,6 +88,16 @@
 			<artifactId>httpclient</artifactId>
 		</dependency>
 		<!-- Fin Libreria para el manejo de WebCliente -->
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-log4j2</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -88,7 +108,7 @@
 			</plugin>
 		</plugins>
 	</build>
-<profiles>
+	<profiles>
 		<profile>
 			<id>Jib-With-Assembly</id>
 			<build>
