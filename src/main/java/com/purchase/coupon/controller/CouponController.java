@@ -17,7 +17,7 @@ public class CouponController {
 
 	@PostMapping(consumes = "application/json", produces = "application/json")
 	public ResponseEntity<String> getCupontItems(@RequestBody(required = true) ItemsToBy requestBody){
-		return ResponseEntity.ok("Respuesta de /coupon");
+		return ResponseEntity.ok("Hola todos, CICD");
 	}
 	
 	@PostMapping(value="/favorite/user/{userId}/item/{itemId}", consumes = "application/json", produces = "application/json")
