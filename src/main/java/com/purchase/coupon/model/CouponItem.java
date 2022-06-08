@@ -6,36 +6,41 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CouponItem   {
   @JsonProperty("id")
-  private Long id = null;
+  private String id = null;
 
   @JsonProperty("quantity")
-  private Long quantity = null;
+  private Integer quantity = null;
+  
 
-  public CouponItem id(Long id) {
+  public CouponItem(String id, Integer quantity) {
+	super();
+	this.id = id;
+	this.quantity = quantity;
+}
+
+public CouponItem id(String id) {
     this.id = id;
     return this;
   }
 
-
-  public Long getId() {
+  public String getId() {
     return id;
   }
 
-  public void setId(Long id) {
+  public void setId(String id) {
     this.id = id;
   }
 
-  public CouponItem quantity(Long quantity) {
+  public CouponItem quantity(Integer quantity) {
     this.quantity = quantity;
     return this;
   }
 
-
-  public Long getQuantity() {
+  public Integer getQuantity() {
     return quantity;
   }
 
-  public void setQuantity(Long quantity) {
+  public void setQuantity(Integer quantity) {
     this.quantity = quantity;
   }
 
@@ -48,9 +53,9 @@ public class CouponItem   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    CouponItem item = (CouponItem) o;
-    return Objects.equals(this.id, item.id) &&
-        Objects.equals(this.quantity, item.quantity);
+    CouponItem couponItem = (CouponItem) o;
+    return Objects.equals(this.id, couponItem.id) &&
+        Objects.equals(this.quantity, couponItem.quantity);
   }
 
   @Override
@@ -61,7 +66,7 @@ public class CouponItem   {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Item {\n");
+    sb.append("class CouponItem {\n");
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    quantity: ").append(toIndentedString(quantity)).append("\n");

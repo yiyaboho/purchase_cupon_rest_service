@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.purchase.coupon.exception.BusinessException;
 import com.purchase.coupon.exception.TechnicalException;
+import com.purchase.coupon.model.CouponItem;
 import com.purchase.coupon.model.ItemsToBy;
 import com.purchase.coupon.service.CouponService;
 
@@ -57,8 +58,10 @@ public class CuponController {
 	}
 	
 	@GetMapping(value="/stats", consumes = "application/json", produces = "application/json")
-	public ResponseEntity<Object> getTopFavorites(@RequestParam(name="top") int top){
+	public ResponseEntity<CouponItem[]> getTopFavorites(@RequestParam(name="top", required = false) Integer top){
 		log.info("getTopFavorites top {}", top);
+		if(top == null)
+			top = 5;
 		return ResponseEntity.ok(null);
 	} 
 }

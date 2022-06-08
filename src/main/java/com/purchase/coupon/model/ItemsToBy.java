@@ -7,22 +7,25 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ItemsToBy {
-
-	@JsonProperty("item_ids")
+	@JsonProperty("items_ids")
 	private List<String> itemsIds = null;
 
+	@JsonProperty("amount")
 	private Double amount = null;
 
+	@JsonProperty("total")
 	private Double total = null;
-	
+
+	@JsonProperty("message")
 	private String message = null;
 
-	public ItemsToBy() {
-		}
-	
-	public ItemsToBy(List<String> couponItems, Double totalSpend) {
+	public ItemsToBy(List<String> couponItems, double total2) {
 		this.itemsIds = couponItems;
-		this.total = totalSpend;
+		this.total = total2;
+	}
+
+	public ItemsToBy() {
+
 	}
 
 	public ItemsToBy itemsIds(List<String> itemsIds) {
@@ -32,7 +35,7 @@ public class ItemsToBy {
 
 	public ItemsToBy addItemsIdsItem(String itemsIdsItem) {
 		if (this.itemsIds == null) {
-			this.itemsIds = new ArrayList<>();
+			this.itemsIds = new ArrayList<String>();
 		}
 		this.itemsIds.add(itemsIdsItem);
 		return this;
@@ -72,6 +75,19 @@ public class ItemsToBy {
 		this.total = total;
 	}
 
+	public ItemsToBy message(String message) {
+		this.message = message;
+		return this;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -82,12 +98,12 @@ public class ItemsToBy {
 		}
 		ItemsToBy itemsToBy = (ItemsToBy) o;
 		return Objects.equals(this.itemsIds, itemsToBy.itemsIds) && Objects.equals(this.amount, itemsToBy.amount)
-				&& Objects.equals(this.total, itemsToBy.total);
+				&& Objects.equals(this.total, itemsToBy.total) && Objects.equals(this.message, itemsToBy.message);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(itemsIds, amount, total);
+		return Objects.hash(itemsIds, amount, total, message);
 	}
 
 	@Override
@@ -98,6 +114,7 @@ public class ItemsToBy {
 		sb.append("    itemsIds: ").append(toIndentedString(itemsIds)).append("\n");
 		sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
 		sb.append("    total: ").append(toIndentedString(total)).append("\n");
+		sb.append("    message: ").append(toIndentedString(message)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -111,13 +128,5 @@ public class ItemsToBy {
 			return "null";
 		}
 		return o.toString().replace("\n", "\n    ");
-	}
-
-	public String getMessage() {
-		return message;
-	}
-
-	public void setMessage(String message) {
-		this.message = message;
 	}
 }

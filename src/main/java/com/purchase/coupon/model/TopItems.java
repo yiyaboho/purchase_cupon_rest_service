@@ -1,39 +1,13 @@
 package com.purchase.coupon.model;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+public class TopItems extends ArrayList<CouponItem>  {
 
+  private static final long serialVersionUID = 1L;
 
-public class TopItems   {
-  @JsonProperty("item")
-  private List<CouponItem> item = null;
-
-  public TopItems item(List<CouponItem> item) {
-    this.item = item;
-    return this;
-  }
-
-  public TopItems addItemItem(CouponItem itemItem) {
-    if (this.item == null) {
-      this.item = new ArrayList<>();
-    }
-    this.item.add(itemItem);
-    return this;
-  }
-
-  public List<CouponItem> getItem() {
-    return item;
-  }
-
-  public void setItem(List<CouponItem> item) {
-    this.item = item;
-  }
-
-
-  @Override
+@Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
       return true;
@@ -41,21 +15,19 @@ public class TopItems   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    TopItems topItems = (TopItems) o;
-    return Objects.equals(this.item, topItems.item);
+    return super.equals(o);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(item);
+    return Objects.hash(super.hashCode());
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class TopItems {\n");
-    
-    sb.append("    item: ").append(toIndentedString(item)).append("\n");
+    sb.append("    ").append(toIndentedString(super.toString())).append("\n");
     sb.append("}");
     return sb.toString();
   }

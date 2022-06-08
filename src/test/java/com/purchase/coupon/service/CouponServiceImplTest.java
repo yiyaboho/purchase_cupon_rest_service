@@ -23,7 +23,7 @@ import com.purchase.coupon.webclient.model.Item;
 class CouponServiceImplTest {
 
 	@Mock
-	RestItemsClient restClient;
+	RestItemsClient restItemsClient;
 	
 	@InjectMocks
 	CouponServiceImpl couponService;
@@ -44,7 +44,7 @@ class CouponServiceImplTest {
 	@Test
 	void getCupontItems() throws Exception{
 		List<String> itemsId = Arrays.asList(new String[]{"MLA1", "MLA2", "MLA3", "MLA4", "MLA5"});
-		when(restClient.getItemsInfo(itemsId)).thenReturn(itemsInfo);
+		when(restItemsClient.getItemsInfo(itemsId)).thenReturn(itemsInfo);
 		
 		ItemsToBy result = couponService.getItemsToBy(Arrays.asList(new String[]{"MLA1", "MLA2", "MLA3", "MLA4", "MLA5"}), 500d);
 		
@@ -52,15 +52,4 @@ class CouponServiceImplTest {
 		assertNotNull(result.getItemsIds());
 	}
 
-	@Test
-	void setUserFavorite(){
-		assertEquals("hola", "hola");
-	}
-	
-	@Test
-	void getTopFavorites(){
-		StringBuilder url = new StringBuilder();
-	
-		assertNotNull(url);
-	}
 }

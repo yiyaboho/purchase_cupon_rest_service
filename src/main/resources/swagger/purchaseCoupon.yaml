@@ -75,14 +75,15 @@ paths:
       parameters:
       - name: "top"
         in: "query"
-        description: "numero de items a retornar"
-        required: true
+        description: "opcional numero de items a retornar, si no se envia el valor por defecto es 5"
+        required: false
         type: "number"
+        default: 5
       responses:
         "200":
           description: "successful operation"
-          schema:
-            $ref: "#/definitions/TopItems"
+          schema: 
+              $ref: "#/definitions/TopItems"
         "500":
           description: "Internal error"
 definitions:
@@ -93,6 +94,7 @@ definitions:
         type: "array"
         items:
           type: "string"
+        description: lista de identificadores de items
       amount:
         type: "number"
         format: "double"
@@ -104,19 +106,18 @@ definitions:
       message:
         type: "string"
         description: "mensaje en caso de error de negocio"
-  TopItems:
-    type: "object"
-    properties:
-      item:
-        type: "array"
-        items:
-          $ref: "#/definitions/Item"
-  Item:
+  CouponItem:
     type: "object"
     properties:
       id:
-        type: "integer"
-        format: "int64"
+        type: "string"
+        description: "id del item"
       quantity:
         type: "integer"
         format: "int64"
+        description: "cantidad de veces que ha sido marcado como favorito" 
+  TopItems:
+    type: "array"
+    items:
+       $ref: "#/definitions/CouponItem"
+    
