@@ -1,6 +1,8 @@
 package com.purchase.coupon.controller;
 
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,7 @@ import com.purchase.coupon.exception.TechnicalException;
 import com.purchase.coupon.model.CouponItem;
 import com.purchase.coupon.model.ItemsToBy;
 import com.purchase.coupon.service.CouponService;
+import com.purchase.coupon.service.FavoritesService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,6 +30,9 @@ public class CuponController {
 	
 	@Autowired
 	private CouponService couponService;
+	
+	@Autowired
+	private FavoritesService favoriteService;
 
 	
 	@PostMapping(consumes = "application/json", produces = "application/json")
@@ -54,6 +60,8 @@ public class CuponController {
 	
 	@PostMapping(value="/favorite/user/{userId}/item/{itemId}", consumes = "application/json", produces = "application/json")
 	public ResponseEntity<Object> setUserFavorite(@PathVariable(name="userId") String userId, @PathVariable(name="itemId")String itemId){
+		log.info("setUserFavorite request userId: {}, request itemId {}", userId, itemId );
+		favoriteService.setFavorite(userId, itemId);
 		return ResponseEntity.ok(null);
 	}
 	
@@ -62,6 +70,8 @@ public class CuponController {
 		log.info("getTopFavorites top {}", top);
 		if(top == null)
 			top = 5;
-		return ResponseEntity.ok(null);
+		CouponItem[] favorites = favoriteService.getTopFavorites(top);
+		log.info("getTopFavorites response{}", Arrays.asList(favorites));
+		return ResponseEntity.ok(favorites);
 	} 
 }

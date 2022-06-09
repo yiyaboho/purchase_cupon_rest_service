@@ -7,7 +7,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.purchase.coupon.controller.CuponController;
 import com.purchase.coupon.exception.BusinessException;
 import com.purchase.coupon.exception.TechnicalException;
 import com.purchase.coupon.model.ItemsToBy;
@@ -25,7 +24,7 @@ public class CouponServiceImpl implements CouponService {
 	
 	@Override
 	public ItemsToBy getItemsToBy(List<String> items, double amount) throws BusinessException{
-		log.info("ItemsToBy ");
+		log.info("ItemsToBy init");
 		List<Item> priceItems = getPriceItems(items);
 		List<String> couponItems = new ArrayList<>();
 		
@@ -42,7 +41,7 @@ public class CouponServiceImpl implements CouponService {
 		if(couponItems.isEmpty())
 			throw new BusinessException("No se encontraron items que cumplan con el criterio");
 		
-		log.info("ItemsToBy finish");
+		log.info("ItemsToBy end");
 		return new ItemsToBy(couponItems, total);
 	}
 	
@@ -60,7 +59,7 @@ public class CouponServiceImpl implements CouponService {
 			try{
 				priceItems = restItemsClient.getItemsInfo(items);
 			}catch (BusinessException ex) {
-				System.out.print(ex.getMessage());
+				log.error("ItemsToBy BusinessException {}", ex.getMessage());
 			}catch (TechnicalException ex) {
 				throw ex;
 			}

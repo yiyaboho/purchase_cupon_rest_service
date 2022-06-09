@@ -4,6 +4,8 @@ import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import lombok.ToString;
+
 public class CouponItem   {
   @JsonProperty("id")
   private String id = null;
