@@ -1,5 +1,5 @@
 server:
-    port: 9001
+    port: 5000
 app:
   api-items:
     endpoint: https://api.mercadolibre.com/items

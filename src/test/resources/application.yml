@@ -9,3 +9,18 @@ management:
       web:
          exposure:
             include: prometheus,health,info,metric   
+spring:
+  jackson:
+      default-property-inclusion: non_null 
+  datasource:
+    url: jdbc:mysql://awsclouddatabase-1.c5ztco7tkbk4.us-east-1.rds.amazonaws.com:3306/coupon?serverTimezone=UTC&allowPublicKeyRetrieval=true&useSSL=false
+    username: admin
+    password: S9ntaXruz
+  jpa:
+    properties:
+      hibernate: 
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        use-new-id-generator-mappings: false
+        ddl-auto: create
+    show-sql: false
+    open-in-view: false

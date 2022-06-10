@@ -7,7 +7,7 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ItemsToBy {
-	@JsonProperty("items_ids")
+	@JsonProperty("item_ids")
 	private List<String> itemsIds = null;
 
 	@JsonProperty("amount")
