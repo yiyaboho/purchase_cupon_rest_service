@@ -40,50 +40,68 @@ En el diagrama se muestra de manera general las relaciones e interacciones del A
 
 
 ## Instrucciones
-- clone the repo
-https://github.com/yiyaboho/purchase_cupon_rest_service.git 
+
+- Clonar el repo
+
+	https://github.com/yiyaboho/purchase_cupon_rest_service.git 
 
 - Generar artefacto
-```
-mvn package
-```
-- ejecutar la aplicacion
-```
-cd target
-java -jar purchase_coupon_rest_service-0.0.1.jar
-```
 
-- Variables de ambiente:
+	mvn package
+	
+- ejecutar la aplicacion: en la carpeta target ejcutar
+	
+	java -jar purchase_coupon_rest_service-0.0.1.jar
+
+
+##Variables de ambiente##
+
+
 Puerto donde sube la aplicacion por defecto esta el puerto 5000
-	```
+
 	server.port 
-```
 
 
 URL de la API de Items para obtener el precio de un item, por defector esta el valor https://api.mercadolibre.com/items
-	app.api-items.endpoint
+
+		app.api-items.endpoint
+
 
 Valores para conexion con la base de datos MySql para consultar los favoritos
-	spring.datasource.url -  jdbc:mysql://localhost:3306/coupon?serverTimezone=UTC&allowPublicKeyRetrieval=true&useSSL=false
+
+	spring.datasource.url - jdbc:mysql://localhost:3306/coupon?serverTimezone=UTC&allowPublicKeyRetrieval=true&useSSL=false
 	spring.datasource.username - usuario
 	spring.datasource.password - password
 
-TEST Nivel 1:
-curl --location --request POST 'http://localhost:5000/coupon' \
---header 'Content-Type: application/json' \
---data-raw '{
-"item_ids": ["MLA1112351518", "MLA1125397650", "MLA580013811", "MLA757113588", "MLA916058884"],
-"amount": 6000
-}'
 
-TETS Nivel 2:
-curl --location --request GET 'http://localhost:5000/coupon/stats' \
---header 'Content-Type: application/json'
 
-Para agregar favoritos:
-curl --location --request POST 'http://localhost:5000/coupon/favorite/user/tatelite/item/MLA19101769' \
---header 'Content-Type: application/json'
+**TEST Nivel 1:**
 
-TEST Nivel 3
+
+	curl --location --request POST 'http://localhost:5000/coupon' \
+	--header 'Content-Type: application/json' \
+	--data-raw '{
+	"item_ids": ["MLA1112351518", "MLA1125397650", "MLA580013811", "MLA757113588", "MLA916058884"],
+	"amount": 6000
+	}'
+
+**TETS Nivel 2:**
+
+
+	curl --location --request GET 'http://localhost:5000/coupon/stats' \
+	--header 'Content-Type: application/json'
+
+
+**TEST Nivel 3**
+
+
 Se publico en AWS, la url es:
-http://Springbootapp-env.eba-w6c2kxqy.us-east-1.elasticbeanstalk.com
+
+	http://Springbootapp-env.eba-w6c2kxqy.us-east-1.elasticbeanstalk.com
+
+
+**Agregar favoritos:**
+
+
+	curl --location --request POST 'http://localhost:5000/coupon/favorite/user/tatelite/item/MLA19101769' \
+	--header 'Content-Type: application/json'
