@@ -31,7 +31,7 @@ En el diagrama se muestra de manera general las relaciones e interacciones del A
 
 **Diagrama de Clases**
 
-![Diagrama de clases](https://user-images.githubusercontent.com/106846429/173349880-49d05c1d-5337-4bb7-8f79-62b6a01a3447.jpg)
+![Diagrama de clases](https://user-images.githubusercontent.com/106846429/173464940-5fa92626-2225-4ba8-a256-2cadc7a127c8.jpg)
 
 
 **Diagrama de despliegue**
