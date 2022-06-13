@@ -6,12 +6,12 @@ info:
   contact:
     email: "bohorquez.nancy@gmail.com"
 host: "localhost"
-basePath: "/coupon"
+basePath: "/"
 schemes:
 - "https"
 - "http"
 paths:
-  /:
+  /coupon:
     post:
       tags:
       - "coupon, "

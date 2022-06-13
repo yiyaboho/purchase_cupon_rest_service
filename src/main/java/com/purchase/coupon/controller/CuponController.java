@@ -24,7 +24,7 @@ import com.purchase.coupon.service.FavoritesService;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@RequestMapping(path = "/coupon")
+@RequestMapping(path = "/")
 @Slf4j
 public class CuponController {
 	
@@ -35,7 +35,7 @@ public class CuponController {
 	private FavoritesService favoriteService;
 
 	
-	@PostMapping(consumes = "application/json", produces = "application/json")
+	@PostMapping(value = "/coupon", consumes = "application/json", produces = "application/json")
 	public ResponseEntity<ItemsToBy> getCupontItems(@RequestBody(required = true) ItemsToBy requestBody){
 		log.info("getCupontItems request: {}", requestBody );
 		ItemsToBy items2By;
@@ -58,14 +58,14 @@ public class CuponController {
 		
 	}
 	
-	@PostMapping(value="/favorite/user/{userId}/item/{itemId}", consumes = "application/json", produces = "application/json")
+	@PostMapping(value="/coupon/favorite/user/{userId}/item/{itemId}", consumes = "application/json", produces = "application/json")
 	public ResponseEntity<Object> setUserFavorite(@PathVariable(name="userId") String userId, @PathVariable(name="itemId")String itemId){
 		log.info("setUserFavorite request userId: {}, request itemId {}", userId, itemId );
 		favoriteService.setFavorite(userId, itemId);
 		return ResponseEntity.ok(null);
 	}
 	
-	@GetMapping(value="/stats", consumes = "application/json", produces = "application/json")
+	@GetMapping(value="/coupon/stats", consumes = "application/json", produces = "application/json")
 	public ResponseEntity<CouponItem[]> getTopFavorites(@RequestParam(name="top", required = false) Integer top){
 		log.info("getTopFavorites top {}", top);
 		if(top == null)

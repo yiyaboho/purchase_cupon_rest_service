@@ -16,6 +16,7 @@ import com.purchase.coupon.webclient.model.Item;
 import com.purchase.coupon.webclient.model.MultiGetItem;
 
 import lombok.extern.slf4j.Slf4j;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
@@ -25,28 +26,36 @@ public class RestItemsClientImpl implements RestItemsClient{
 	private final WebClient webClient;
 	
 	@Value("${app.api-items.endpoint}")
-	private String endpointApiItems;
+	String endpointApiItems;
 	
 	public RestItemsClientImpl(WebClient.Builder builder) {
+		System.out.print("**********************************************"+endpointApiItems);
 		this.webClient = builder.baseUrl(endpointApiItems).build();
 	}
 	
-	@Override
+	public RestItemsClientImpl() {
+		this.webClient = WebClient.builder().build();
+	}
+	
+/*	@Override
 	public Item getItemInfo(String itemId) {
 		String url = endpointApiItems+"/"+itemId;
+		
 		log.info("getItemIfo items endpoint {}", url);
-		 return this.webClient.get().uri(url)
+		
+		return this.webClient.get().uri(url)
 				 .retrieve()
 				 .onStatus(HttpStatus::is4xxClientError, clientError -> Mono.error(new BusinessException("Se presento un error")))
 				 .onStatus(HttpStatus::is5xxServerError, clientError -> Mono.error(new TechnicalException("Se presento un error tecnico")))
 		.bodyToMono(Item.class)
 		.block();
 		
-	}
+	}*/
 
 	@Override
-	public List<Item> getItemsInfo(List<String> itemsId) {
+	public List<Item> getListItemsInfo(List<String> itemsId) {
 		log.info("getItemIfo items endpoint: {} itemsIds: {}", endpointApiItems, itemsId);
+		
 		List<Item> items = new ArrayList<>();
 		
 		for(int i = 0; i<itemsId.size() ; i++) {
@@ -56,18 +65,35 @@ public class RestItemsClientImpl implements RestItemsClient{
 				url = url.append(itemsId.get(i));
 				url = url.append(",");
 			}
+			
 			url = url.deleteCharAt(url.length()-1);
+			
+			/*List<MultiGetItem> tmpItemsInfo  = this.webClient.get().uri(url.toString())
+					 .retrieve()
+					 .onStatus(HttpStatus::is4xxClientError, clientError -> Mono.error(new BusinessException("Error consultando datos")))
+					 .onStatus(HttpStatus::is5xxServerError, clientError -> Mono.error(new TechnicalException("Se presento un error tecnico")))
+					 .bodyToFlux(MultiGetItem.class)
+					 .collectList().block();
+		
+			if(tmpItemsInfo != null)
+				items.addAll(tmpItemsInfo.stream()
+						.filter(item -> item.getCode().equals("200"))
+						.map(item -> item.getBody())
+						.collect(Collectors.toList()));*/
+			
 			MultiGetItem[] tmpItemsInfo  = this.webClient.get().uri(url.toString())
-				 .retrieve()
-				 .onStatus(HttpStatus::is4xxClientError, clientError -> Mono.error(new BusinessException("Error consultando datos")))
-				 .onStatus(HttpStatus::is5xxServerError, clientError -> Mono.error(new TechnicalException("Se presento un error tecnico")))
-				 .bodyToMono(MultiGetItem[].class)
-				 .block();
-			items.addAll(Arrays.asList(tmpItemsInfo).stream()
-					.filter(item -> item.getCode().equals("200"))
-					.map(item -> item.getBody())
-					.collect(Collectors.toList()));
+					 .retrieve()
+					 .onStatus(HttpStatus::is4xxClientError, clientError -> Mono.error(new BusinessException("Error consultando datos")))
+					 .onStatus(HttpStatus::is5xxServerError, clientError -> Mono.error(new TechnicalException("Se presento un error tecnico")))
+					 .bodyToMono(MultiGetItem[].class)
+					 .block();
+				
+				items.addAll(Arrays.asList(tmpItemsInfo).stream()
+						.filter(item -> item.getCode().equals("200"))
+						.map(item -> item.getBody())
+						.collect(Collectors.toList()));
 		}
+		
 		log.info("getItemIfo response items info: {}", items);
 		
 		return items;

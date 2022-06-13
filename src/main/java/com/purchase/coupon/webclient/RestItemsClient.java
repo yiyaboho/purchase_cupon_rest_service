@@ -6,8 +6,6 @@ import com.purchase.coupon.webclient.model.Item;
 
 public interface RestItemsClient {
 	
-	public Item getItemInfo(String itemId);
-	
-	public List<Item> getItemsInfo(List<String> itemId);
+	public List<Item> getListItemsInfo(List<String> itemId);
 
 }

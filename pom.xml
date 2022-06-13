@@ -62,6 +62,16 @@
 			<artifactId>mockito-inline</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.squareup.okhttp3</groupId>
+			<artifactId>okhttp</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.squareup.okhttp3</groupId>
+			<artifactId>mockwebserver</artifactId>
+			<scope>test</scope>
+		</dependency>
 		<!-- Inicio dependecias healthcheck microservicio -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -110,7 +120,7 @@
 		</dependency>
 		<!--Fin Libreria para Spring Data JPA with Hibernate -->
 	</dependencies>
-	 
+
 	<build>
 		<plugins>
 			<plugin>

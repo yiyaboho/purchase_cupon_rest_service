@@ -57,7 +57,7 @@ public class CouponServiceImpl implements CouponService {
 	private List<Item> getPriceItems(List<String> items) {
 		List<Item> priceItems = new ArrayList<>();
 			try{
-				priceItems = restItemsClient.getItemsInfo(items);
+				priceItems = restItemsClient.getListItemsInfo(items);
 			}catch (BusinessException ex) {
 				log.error("ItemsToBy BusinessException {}", ex.getMessage());
 			}catch (TechnicalException ex) {

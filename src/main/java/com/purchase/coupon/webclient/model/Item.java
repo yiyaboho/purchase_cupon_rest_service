@@ -4,11 +4,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@Getter @Setter @ToString
+@Getter @Setter @ToString @NoArgsConstructor
 public class Item {
 	private String id;
 	
