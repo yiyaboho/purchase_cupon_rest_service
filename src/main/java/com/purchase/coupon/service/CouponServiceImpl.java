@@ -25,6 +25,7 @@ public class CouponServiceImpl implements CouponService {
 	@Override
 	public ItemsToBy getItemsToBy(List<String> items, double amount) throws BusinessException{
 		log.info("ItemsToBy init");
+		
 		List<Item> priceItems = getPriceItems(items);
 		List<String> couponItems = new ArrayList<>();
 		

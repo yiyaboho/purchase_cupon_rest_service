@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.purchase.coupon.exception.BusinessException;
 import com.purchase.coupon.model.CouponItem;
+import com.purchase.coupon.repository.FavoriteRepository;
 import com.purchase.coupon.repository.ItemRepository;
 import com.purchase.coupon.repository.UserRepository;
 import com.purchase.coupon.repository.model.Favorites;
@@ -32,14 +33,19 @@ public class FavoritesServiceImpl implements FavoritesService {
 	@Autowired
 	private UserRepository userRepository;
 	
+	@Autowired
+	private FavoriteRepository favoritesRepository;
+	
 	@Override
 	public Item setFavorite(String userId, String itemId) {
 		log.info("setFavorite init");
 		
 		Item favoriteItem;
 		User user;
+		Favorites favorites;
 		
 		favoriteItem = validateItem(itemRepository.findById(itemId));
+		favorites = validateFavorites(favoritesRepository.findById(itemId), itemId);
 		
 		user = validateUser(userRepository.findById(userId));
 		
@@ -48,6 +54,10 @@ public class FavoritesServiceImpl implements FavoritesService {
 		
 		favoriteItem.setUsers(userList);
 		favoriteItem = itemRepository.save(favoriteItem);
+		
+		
+		favorites.setQuantity(favorites.getQuantity() + 1);
+		favoritesRepository.save(favorites);
 		
 		log.info("setFavorite end");
 		
@@ -69,11 +79,19 @@ public class FavoritesServiceImpl implements FavoritesService {
 			throw new BusinessException("No se encontro informacion del usuario");
 		}
 	}
+	
+	private Favorites validateFavorites(Optional<Favorites> optionalFavorites, String itemId) throws BusinessException{
+		if(optionalFavorites.isPresent()) {
+			return optionalFavorites.get();
+		}else {
+			return new Favorites(itemId, 0);
+		}
+	}
 
 	@Override
 	public CouponItem[] getTopFavorites(int top) {
 		log.info("getTopFavorites init");
-		List<Favorites> favorites = itemRepository.findTopFavorites(PageRequest.of(0,top));
+		List<Favorites> favorites = favoritesRepository.findTopFavorites(PageRequest.of(0,top));
 		CouponItem[] response = new CouponItem[favorites.size()];
 
 		int i = 0;

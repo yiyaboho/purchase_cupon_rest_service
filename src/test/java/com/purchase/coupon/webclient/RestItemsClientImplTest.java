@@ -131,7 +131,7 @@ public class RestItemsClientImplTest {
 
 	}*/
 
-	//@Test
+	@Test
 	void getIListItemsInfo() {
 		List<String> itemsId = Arrays.asList(new String[] { "MLA1", "MLA2", "MLA3", "MLA4", "MLA5" });
 		String url = endpointApiItems + "?ids=MLA1,MLA2,MLA3,MLA4,MLA5";

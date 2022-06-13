@@ -1,9 +1,26 @@
 package com.purchase.coupon.repository.model;
 
-public interface Favorites {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-	String getItemId();
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-	Integer getQuantity();
+@Table(name = "Favorite")
+@Entity
+@Getter
+@Setter @NoArgsConstructor @AllArgsConstructor
+public class Favorites {
+
+	@Id
+	@Column(name = "item_id", nullable = false, length = 100)
+	private String itemId;
+
+	@Column(name = "likes")
+	Integer quantity;
 
 }

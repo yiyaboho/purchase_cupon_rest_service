@@ -18,12 +18,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageRequest;
 
 import com.purchase.coupon.model.CouponItem;
+import com.purchase.coupon.repository.FavoriteRepository;
 import com.purchase.coupon.repository.ItemRepository;
 import com.purchase.coupon.repository.UserRepository;
 import com.purchase.coupon.repository.model.Favorites;
 import com.purchase.coupon.repository.model.Item;
 import com.purchase.coupon.repository.model.User;
-import com.purchase.coupon.repository.model.UserItem;
 
 @SpringBootTest
 class FavoritesServiceImplTest {
@@ -33,6 +33,9 @@ class FavoritesServiceImplTest {
 	
 	@Mock 
 	ItemRepository itemRepository;
+	
+	@Mock
+	FavoriteRepository favoriteRepository;
 	
 	@Mock
 	UserRepository userRepository;
@@ -47,11 +50,11 @@ class FavoritesServiceImplTest {
 		MockitoAnnotations.openMocks(FavoritesServiceImplTest.class);
 		favorites = new ArrayList<>();
 		
-		favorites.add(new Bookmark("MLA4", 87));
-		favorites.add(new Bookmark("MLA1", 25));
-		favorites.add(new Bookmark("MLA2", 10));
-		favorites.add(new Bookmark("MLA5", 5));
-		favorites.add(new Bookmark("MLA3", 1));
+		favorites.add(new Favorites("MLA4", 87));
+		favorites.add(new Favorites("MLA1", 25));
+		favorites.add(new Favorites("MLA2", 10));
+		favorites.add(new Favorites("MLA5", 5));
+		favorites.add(new Favorites("MLA3", 1));
 		
 		favoriteCoupons = new CouponItem[5];
 		favoriteCoupons[0] = new CouponItem("MLA4", 87);
@@ -63,7 +66,7 @@ class FavoritesServiceImplTest {
 	
 	@Test
 	void getCupontItems() throws Exception{
-		when(itemRepository.findTopFavorites(PageRequest.of(0,5))).thenReturn(favorites);
+		when(favoriteRepository.findTopFavorites(PageRequest.of(0,5))).thenReturn(favorites);
 		
 		CouponItem[] result = favoritesService.getTopFavorites(5);
 		

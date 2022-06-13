@@ -37,20 +37,6 @@ public class RestItemsClientImpl implements RestItemsClient{
 		this.webClient = WebClient.builder().build();
 	}
 	
-/*	@Override
-	public Item getItemInfo(String itemId) {
-		String url = endpointApiItems+"/"+itemId;
-		
-		log.info("getItemIfo items endpoint {}", url);
-		
-		return this.webClient.get().uri(url)
-				 .retrieve()
-				 .onStatus(HttpStatus::is4xxClientError, clientError -> Mono.error(new BusinessException("Se presento un error")))
-				 .onStatus(HttpStatus::is5xxServerError, clientError -> Mono.error(new TechnicalException("Se presento un error tecnico")))
-		.bodyToMono(Item.class)
-		.block();
-		
-	}*/
 
 	@Override
 	public List<Item> getListItemsInfo(List<String> itemsId) {
