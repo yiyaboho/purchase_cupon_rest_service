@@ -25,33 +25,45 @@ public class CouponServiceImpl implements CouponService {
 	@Override
 	public ItemsToBy getItemsToBy(List<String> items, double amount) throws BusinessException{
 		log.info("ItemsToBy init");
-		
 		List<Item> priceItems = getPriceItems(items);
-		List<String> couponItems = new ArrayList<>();
-		
-		double total = 0;
-		
-		for(Item item : sortList(priceItems)) {
-			double tmpTotal = total + item.getPrice();
-			if(tmpTotal <= amount) {
-				total = tmpTotal;
-				couponItems.add(item.getId());
-			}
-		}
-		
-		if(couponItems.isEmpty())
+
+		ItemsToBy couponItems = findBestListOfItems(priceItems, amount);
+
+		if(couponItems == null)
 			throw new BusinessException("No se encontraron items que cumplan con el criterio");
 		
 		log.info("ItemsToBy end");
-		return new ItemsToBy(couponItems, total);
+		return couponItems;
 	}
 	
-	private List<Item> sortList(List<Item> items){
-		Comparator<Item> comparator
-	      = (item1, item2) -> Double.valueOf(item1.getPrice()).compareTo(Double.valueOf(item2.getPrice()));
-	    
-	      items.sort(comparator);
-	      return items;
+	private ItemsToBy findBestListOfItems(List<Item> priceItems, double amount){
+		List<String> couponItems;
+		List<ItemsToBy> tmpTree = new ArrayList<>();
+
+		while(!priceItems.isEmpty()) {
+			couponItems = new ArrayList<>();
+			double total = 0;
+			for (Item item : priceItems) {
+				if (item.getPrice() < amount) {
+					double tmpTotal = total + item.getPrice();
+					if (tmpTotal <= amount) {
+						total = tmpTotal;
+						couponItems.add(item.getId());
+					}
+				}
+			}
+			tmpTree.add(new ItemsToBy(couponItems, total));
+			priceItems.remove(0);
+		}
+
+		if(!tmpTree.isEmpty()) {
+			Comparator<ItemsToBy> comparator
+					= (item1, item2) -> item1.getTotal().compareTo(item2.getTotal());
+
+			tmpTree.sort(comparator.reversed());
+			return tmpTree.get(0);
+		}
+		return null;
 	}
 	
 	

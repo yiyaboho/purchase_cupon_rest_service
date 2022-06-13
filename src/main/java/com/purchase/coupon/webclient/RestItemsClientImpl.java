@@ -16,7 +16,6 @@ import com.purchase.coupon.webclient.model.Item;
 import com.purchase.coupon.webclient.model.MultiGetItem;
 
 import lombok.extern.slf4j.Slf4j;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
@@ -29,7 +28,7 @@ public class RestItemsClientImpl implements RestItemsClient{
 	String endpointApiItems;
 	
 	public RestItemsClientImpl(WebClient.Builder builder) {
-		System.out.print("**********************************************"+endpointApiItems);
+		
 		this.webClient = builder.baseUrl(endpointApiItems).build();
 	}
 	
@@ -53,19 +52,6 @@ public class RestItemsClientImpl implements RestItemsClient{
 			}
 			
 			url = url.deleteCharAt(url.length()-1);
-			
-			/*List<MultiGetItem> tmpItemsInfo  = this.webClient.get().uri(url.toString())
-					 .retrieve()
-					 .onStatus(HttpStatus::is4xxClientError, clientError -> Mono.error(new BusinessException("Error consultando datos")))
-					 .onStatus(HttpStatus::is5xxServerError, clientError -> Mono.error(new TechnicalException("Se presento un error tecnico")))
-					 .bodyToFlux(MultiGetItem.class)
-					 .collectList().block();
-		
-			if(tmpItemsInfo != null)
-				items.addAll(tmpItemsInfo.stream()
-						.filter(item -> item.getCode().equals("200"))
-						.map(item -> item.getBody())
-						.collect(Collectors.toList()));*/
 			
 			MultiGetItem[] tmpItemsInfo  = this.webClient.get().uri(url.toString())
 					 .retrieve()

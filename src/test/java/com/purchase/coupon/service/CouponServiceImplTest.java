@@ -57,6 +57,30 @@ class CouponServiceImplTest {
 		assertEquals(480d, result.getTotal());
 		assertNotNull(result.getItemsIds());
 	}
+	
+	@Test
+	void getCupontItemsCase2() throws Exception {
+		List<String> itemsId = Arrays.asList(new String[] { "MLA1", "MLA2", "MLA3", "MLA4", "MLA5" });
+		when(restItemsClient.getListItemsInfo(itemsId)).thenReturn(getItemsCase2());
+
+		ItemsToBy result = couponService
+				.getItemsToBy(Arrays.asList(new String[] { "MLA1", "MLA2", "MLA3", "MLA4", "MLA5" }), 6000d);
+
+		assertEquals(100d, result.getTotal());
+		
+		assertNotNull(result.getItemsIds());
+	}
+	
+	private List<Item> getItemsCase2(){
+		List<Item> itemsInfoCase2 = new ArrayList<Item>();
+		itemsInfo.add(new Item("MLA1", 100d));
+		itemsInfo.add(new Item("MLA2", 20010d));
+		itemsInfo.add(new Item("MLA3", 26000d));
+		itemsInfo.add(new Item("MLA4", 8000d));
+		itemsInfo.add(new Item("MLA5", 5999d));
+		return itemsInfoCase2;
+	}
+	
 
 	@Test
 	void getCupontItemsBusinessException() throws Exception {

@@ -50,14 +50,16 @@ public class FavoritesServiceImpl implements FavoritesService {
 		user = validateUser(userRepository.findById(userId));
 		
 		Set<User> userList = favoriteItem.getUsers();
-		userList.add(user);
+		if(userList.add(user)) {
+			
+			favoriteItem.setUsers(userList);
+			favoriteItem = itemRepository.save(favoriteItem);
+			
+			favorites.setQuantity(favorites.getQuantity() + 1);
+			favoritesRepository.save(favorites);
+			
+		}
 		
-		favoriteItem.setUsers(userList);
-		favoriteItem = itemRepository.save(favoriteItem);
-		
-		
-		favorites.setQuantity(favorites.getQuantity() + 1);
-		favoritesRepository.save(favorites);
 		
 		log.info("setFavorite end");
 		
