@@ -56,7 +56,7 @@ En el diagrama se muestra de manera general las relaciones e interacciones del A
 
 **TEST Nivel 1:**
 
-	curl --location --request POST 'http://localhost:5000/coupon' \
+	curl --location --request POST 'http://springbootapp-env.eba-vmxfgd5a.us-east-1.elasticbeanstalk.com/coupon' \
 	--header 'Content-Type: application/json' \
 	--data-raw '{
 	"item_ids": ["MLA1112351518", "MLA1125397650", "MLA580013811", "MLA757113588", "MLA916058884"],
@@ -65,7 +65,7 @@ En el diagrama se muestra de manera general las relaciones e interacciones del A
 
 **TETS Nivel 2:**
 
-	curl --location --request GET 'http://localhost:5000/coupon/stats' \
+	curl --location --request GET 'http://springbootapp-env.eba-vmxfgd5a.us-east-1.elasticbeanstalk.com/coupon/stats' \
 	--header 'Content-Type: application/json'
 
 
@@ -74,23 +74,23 @@ En el diagrama se muestra de manera general las relaciones e interacciones del A
 
 Se publico en AWS, la url es:
 
-	http://Springbootapp-env.eba-w6c2kxqy.us-east-1.elasticbeanstalk.com
+	http://springbootapp-env.eba-vmxfgd5a.us-east-1.elasticbeanstalk.com
 
 
 ##Funcionalidad adicional
 
 **Agregar favoritos:**
 
-	curl --location --request POST 'http://localhost:5000/coupon/favorite/user/tatelite/item/MLA19101769' \
+	curl --location --request POST 'http://springbootapp-env.eba-vmxfgd5a.us-east-1.elasticbeanstalk.com/coupon/favorite/user/tatelite/item/MLA19101769' \
 	--header 'Content-Type: application/json'
 	
 **Eliminar favoritos**
 
-	curl --location --request DELETE 'http://localhost:5000/coupon/favorite/user/Leilani/item/MLA1140679928' \
+	curl --location --request DELETE 'http://springbootapp-env.eba-vmxfgd5a.us-east-1.elasticbeanstalk.com/coupon/favorite/user/Leilani/item/MLA1140679928' \
 	--header 'Content-Type: application/json'	
 
 **Validar estado del servicio**
 
-	curl --location --request GET 'http://Springbootapp-env.eba-w6c2kxqy.us-east-1.elasticbeanstalk.com/actuator/health' \
+	curl --location --request GET 'http://springbootapp-env.eba-vmxfgd5a.us-east-1.elasticbeanstalk.com/actuator/health' \
 	--header 'Content-Type: application/json' \
 	--data-raw ''
