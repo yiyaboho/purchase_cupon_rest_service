@@ -63,6 +63,32 @@ paths:
           description: "successful operation"
         "400":
           description: "Invalid status value"
+    delete:
+      tags:
+      - "favoritos"
+      summary: "Eliminar item favorito del usuario"
+      description: "Elimina un item que se marco como favorito"
+      operationId: "deleteUserFavorite"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: path
+        name: "userId"
+        type: string
+        description: "identificador del usuario"
+        required: true
+      - in: path
+        name: "itemId"
+        type: string
+        description: "identificador del item eliminado como favorito"
+        required: true
+      responses:
+        "200":
+          description: "successful operation"
+        "400":
+          description: "Invalid status value"          
   /stats:
     get:
       tags:

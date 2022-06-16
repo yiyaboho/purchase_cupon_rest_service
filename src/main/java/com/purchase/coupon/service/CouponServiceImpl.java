@@ -15,6 +15,11 @@ import com.purchase.coupon.webclient.model.Item;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Clase que contienen la logica de negocio relacionada al cupon 
+ * @author bohor
+ *
+ */
 @Service
 @Slf4j
 public class CouponServiceImpl implements CouponService {
@@ -36,6 +41,12 @@ public class CouponServiceImpl implements CouponService {
 		return couponItems;
 	}
 	
+	/**
+	 * Funcion para calcular la lista de items que maximiza lo gastado
+	 * @param priceItems : lista de items con su precio
+	 * @param amount : valor del cupon
+	 * @return : identificador de los items y el monto total 
+	 */
 	private ItemsToBy findBestListOfItems(List<Item> priceItems, double amount){
 		List<String> couponItems;
 		List<ItemsToBy> tmpTree = new ArrayList<>();

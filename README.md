@@ -28,7 +28,6 @@ En el diagrama se muestra de manera general las relaciones e interacciones del A
 ![Diagrama de Contexto](https://user-images.githubusercontent.com/106846429/173261574-0a45695c-afb9-4659-a84a-c30d7abeee5c.jpg) 
 
 
-
 **Diagrama de Clases**
 
 ![Diagrama de clases](https://user-images.githubusercontent.com/106846429/173464940-5fa92626-2225-4ba8-a256-2cadc7a127c8.jpg)
@@ -49,34 +48,13 @@ En el diagrama se muestra de manera general las relaciones e interacciones del A
 
 	mvn package
 	
-- ejecutar la aplicacion: en la carpeta target ejcutar
+- Ejecutar la aplicacion: en la carpeta target
 	
 	java -jar purchase_coupon_rest_service-0.0.1.jar
 
 
-##Variables de ambiente##
-
-
-Puerto donde sube la aplicacion por defecto esta el puerto 5000
-
-	server.port 
-
-
-URL de la API de Items para obtener el precio de un item, por defector esta el valor https://api.mercadolibre.com/items
-
-		app.api-items.endpoint
-
-
-Valores para conexion con la base de datos MySql para consultar los favoritos
-
-	spring.datasource.url - jdbc:mysql://localhost:3306/coupon?serverTimezone=UTC&allowPublicKeyRetrieval=true&useSSL=false
-	spring.datasource.username - usuario
-	spring.datasource.password - password
-
-
 
 **TEST Nivel 1:**
-
 
 	curl --location --request POST 'http://localhost:5000/coupon' \
 	--header 'Content-Type: application/json' \
@@ -86,7 +64,6 @@ Valores para conexion con la base de datos MySql para consultar los favoritos
 	}'
 
 **TETS Nivel 2:**
-
 
 	curl --location --request GET 'http://localhost:5000/coupon/stats' \
 	--header 'Content-Type: application/json'
@@ -100,8 +77,20 @@ Se publico en AWS, la url es:
 	http://Springbootapp-env.eba-w6c2kxqy.us-east-1.elasticbeanstalk.com
 
 
-**Agregar favoritos:**
+##Funcionalidad adicional
 
+**Agregar favoritos:**
 
 	curl --location --request POST 'http://localhost:5000/coupon/favorite/user/tatelite/item/MLA19101769' \
 	--header 'Content-Type: application/json'
+	
+**Eliminar favoritos**
+
+	curl --location --request DELETE 'http://localhost:5000/coupon/favorite/user/Leilani/item/MLA1140679928' \
+	--header 'Content-Type: application/json'	
+
+**Validar estado del servicio**
+
+	curl --location --request GET 'http://Springbootapp-env.eba-w6c2kxqy.us-east-1.elasticbeanstalk.com/actuator/health' \
+	--header 'Content-Type: application/json' \
+	--data-raw ''
