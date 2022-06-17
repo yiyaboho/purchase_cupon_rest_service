@@ -40,9 +40,7 @@ En el diagrama se muestra de manera general las relaciones e interacciones del A
 
 ## Instrucciones
 
-- Clonar el repo
-
-	https://github.com/yiyaboho/purchase_cupon_rest_service.git 
+- Clonar el repo, utilizar la rama main
 
 - Generar artefacto
 
