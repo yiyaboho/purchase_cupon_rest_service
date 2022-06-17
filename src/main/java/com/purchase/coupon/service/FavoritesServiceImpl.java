@@ -21,6 +21,11 @@ import com.purchase.coupon.repository.model.User;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Clase encargada de implementar la logica para almacenar y consultar informacion sobre items favoritos
+ * @author bohor
+ *
+ */
 @Service
 @Slf4j
 @Transactional
@@ -59,7 +64,6 @@ public class FavoritesServiceImpl implements FavoritesService {
 			favoritesRepository.save(favorites);
 			
 		}
-		
 		
 		log.info("setFavorite end");
 		
@@ -103,6 +107,35 @@ public class FavoritesServiceImpl implements FavoritesService {
 		}
 		log.info("getTopFavorites end");
 		return response;
+	}
+
+	@Override
+	public User deleteFavorite(String userId, String itemId) {
+		log.info("deleteFavorite init");
+		
+		Item favoriteItem;
+		User user;
+		Favorites favorites;
+		
+		favoriteItem = validateItem(itemRepository.findById(itemId));
+		favorites = validateFavorites(favoritesRepository.findById(itemId), itemId);
+		
+		user = validateUser(userRepository.findById(userId));
+		
+		Set<Item> itemsList = user.getItems();
+		if(itemsList.remove(favoriteItem)) {
+			
+			user.setItems(itemsList);
+			user = userRepository.save(user);
+			
+			favorites.setQuantity(favorites.getQuantity() - 1);
+			favoritesRepository.save(favorites);
+			
+		}
+		
+		log.info("deleteFavorite end");
+		
+		return user;
 	}
 
 }

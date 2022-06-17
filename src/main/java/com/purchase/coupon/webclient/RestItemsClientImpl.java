@@ -18,6 +18,11 @@ import com.purchase.coupon.webclient.model.MultiGetItem;
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 
+/**
+ * Clase encargada de hacer el llamado al rest API de consulta de items
+ * @author bohor
+ *
+ */
 @Service
 @Slf4j
 public class RestItemsClientImpl implements RestItemsClient{
