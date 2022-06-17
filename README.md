@@ -75,7 +75,8 @@ Se publico en AWS, la url es:
 	http://springbootapp-env.eba-vmxfgd5a.us-east-1.elasticbeanstalk.com
 
 
-**Funcionalidad adicional**
+
+## Funcionalidad adicional
 
 **Agregar favoritos:**
 
